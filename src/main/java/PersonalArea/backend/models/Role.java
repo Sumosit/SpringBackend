@@ -21,9 +21,9 @@ public class Role {
     this.name = name;
   }
 
-  public Role(Object o, String role_user) {
+  public Role(Object o, ERole roleUser) {
     this.id = null;
-    this.setName(ERole.ROLE_ADMIN);
+    this.setName(roleUser);
   }
 
   public Integer getId() {

@@ -52,7 +52,12 @@ public class TestController {
 
   @GetMapping("/add/roles")
   public String addRole() {
-    Role role = new Role(null, "ROLE_USER");
+    ERole name;
+    Role role = new Role(null, ERole.ROLE_USER);
+    roleRepository.save(role);
+    role.setName(ERole.ROLE_ADMIN);
+    roleRepository.save(role);
+    role.setName(ERole.ROLE_MODERATOR);
     roleRepository.save(role);
     return "Added";
   }
