@@ -50,21 +50,21 @@ public class TestController {
   @GetMapping("/all/users")
   public List<User> allUsers() { return userRepository.findAll();}
 
-//  @GetMapping("/add/roles")
-//  public String addRole(@RequestParam String name) {
-//    ERole n;
-//    Role role = new Role();
-//    role.setId(null);
-//    if (name.equals("user")) {
-//      role.setName(ERole.ROLE_USER);
-//      roleRepository.save(role);
-//    }else if (name.equals("moderator")) {
-//      role.setName(ERole.ROLE_MODERATOR);
-//      roleRepository.save(role);
-//    }else if (name.equals("admin")) {
-//      role.setName(ERole.ROLE_ADMIN);
-//      roleRepository.save(role);
-//    }
-//    return "Added";
-//  }
+  @GetMapping("/add/roles")
+  public String addRole(@RequestParam String name) {
+    ERole n;
+    Role role = new Role();
+    role.setId(null);
+    if (name.equals("user")) {
+      role.setName(ERole.ROLE_USER);
+      roleRepository.save(role);
+    }else if (name.equals("moderator")) {
+      role.setName(ERole.ROLE_MODERATOR);
+      roleRepository.save(role);
+    }else if (name.equals("admin")) {
+      role.setName(ERole.ROLE_ADMIN);
+      roleRepository.save(role);
+    }
+    return "Added";
+  }
 }
