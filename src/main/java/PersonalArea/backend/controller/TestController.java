@@ -15,6 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+  @Autowired
+  RoleRepository roleRepository;
+
   @GetMapping("/all")
   public String allAccess() {
     return "Public Content.";
@@ -37,4 +40,7 @@ public class TestController {
   public String adminAccess() {
     return "Admin Board.";
   }
+
+  @GetMapping("/all/roles")
+  public List<Role> allRoles() { return roleRepository.findAll();}
 }
