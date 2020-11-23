@@ -23,7 +23,7 @@ public class Role {
 
   public Role(Object o, String role_user) {
     this.id = null;
-    this.setName(ERole.ROLE_USER);
+    this.setName(ERole.ROLE_ADMIN);
   }
 
   public Integer getId() {
