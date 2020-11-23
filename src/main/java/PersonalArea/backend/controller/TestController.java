@@ -15,9 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
-  @Autowired
-  RoleRepository roleRepository;
-
   @GetMapping("/all")
   public String allAccess() {
     return "Public Content.";
