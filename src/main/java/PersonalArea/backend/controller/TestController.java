@@ -2,7 +2,9 @@ package PersonalArea.backend.controller;
 
 import PersonalArea.backend.models.ERole;
 import PersonalArea.backend.models.Role;
+import PersonalArea.backend.models.User;
 import PersonalArea.backend.repository.RoleRepository;
+import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ import java.util.List;
 public class TestController {
   @Autowired
   RoleRepository roleRepository;
+
+  @Autowired
+  UserRepository userRepository;
 
   @GetMapping("/all")
   public String allAccess() {
@@ -41,6 +46,9 @@ public class TestController {
 
   @GetMapping("/all/roles")
   public List<Role> allRoles() { return roleRepository.findAll();}
+
+  @GetMapping("/all/users")
+  public List<User> allUsers() { return userRepository.findAll();}
 
   @GetMapping("/add/roles")
   public String addRole() {
