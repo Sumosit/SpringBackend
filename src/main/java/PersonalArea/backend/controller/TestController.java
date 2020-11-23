@@ -40,7 +40,4 @@ public class TestController {
   public String adminAccess() {
     return "Admin Board.";
   }
-
-  @GetMapping("/all")
-  public List<Role> allRoles() { return roleRepository.findAll();}
 }
