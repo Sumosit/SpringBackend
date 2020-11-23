@@ -42,7 +42,7 @@ public class TestController {
   @GetMapping("/all/roles")
   public List<Role> allRoles() { return roleRepository.findAll();}
 
-  @PostMapping("/add/roles")
+  @GetMapping("/add/roles")
   public String addRole() {
     Role role = new Role(null, "ROLE_USER");
     return "Added";
