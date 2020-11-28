@@ -27,6 +27,6 @@ public class ByPassController {
     roles.add(new Role(3, ERole.ROLE_ADMIN));
     user.setRoles(roles);
 //    userRepository.save(user);
-    return user.toString();
+    return user.getRoles().toString();
   }
 }
