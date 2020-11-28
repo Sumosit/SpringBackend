@@ -24,7 +24,7 @@ public class ByPassController {
   public String addRoleToUser(@RequestParam String email) {
     User user = userRepository.findByEmail(email);
     Set<Role> roles = user.getRoles();
-    roles.add(new Role(ERole.ROLE_ADMIN));
+    roles.add(new Role(null, ERole.ROLE_ADMIN));
     user.setRoles(roles);
     userRepository.save(user);
     return "Accepted";
