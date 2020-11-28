@@ -23,7 +23,7 @@ public class ByPassController {
 
   @GetMapping("add/role/{email}/{rolename}")
   public String addRoleToUser(@PathVariable String email,
-                              String rolename) {
+                              @PathVariable String rolename) {
     User user = userRepository.findByEmail(email);
     Set<Role> roles = user.getRoles();
     if (rolename.equals("ROLE_USER")) {
