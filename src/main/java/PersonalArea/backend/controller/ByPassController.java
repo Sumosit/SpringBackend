@@ -21,7 +21,7 @@ public class ByPassController {
   UserRepository userRepository;
 
   @GetMapping("add/admin")
-  public String addRoleToUser(@RequestParam Long id) {
+  public User addRoleToUser(@RequestParam Long id) {
     User user = userRepository.getOne(id);
     Set<Role> roles = user.getRoles();
     Role role = new Role();
@@ -30,6 +30,6 @@ public class ByPassController {
     roles.add(role);
     user.setRoles(roles);
 //    userRepository.save(user);
-    return "Accepted";
+    return user;
   }
 }
