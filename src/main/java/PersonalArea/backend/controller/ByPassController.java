@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/qwerty")
 public class ByPassController {
 
@@ -21,9 +20,9 @@ public class ByPassController {
   @Autowired
   UserRepository userRepository;
 
-  @GetMapping("add/role")
-  public String addRoleToUser(@RequestParam String email,
-                              @RequestParam String rolename) {
+  @GetMapping("add/role/{email}/{rolename}")
+  public String addRoleToUser(@PathVariable String email,
+                              @PathVariable String rolename) {
     User user = userRepository.findByEmail(email);
     Set<Role> roles = user.getRoles();
     if (rolename.equals("ROLE_USER")) {
