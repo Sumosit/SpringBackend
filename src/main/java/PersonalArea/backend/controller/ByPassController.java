@@ -25,7 +25,7 @@ public class ByPassController {
     User user = userRepository.getOne(id);
     Set<Role> roles = user.getRoles();
     roles.add(new Role(ERole.ROLE_ADMIN));
-//    user.setRoles(roles);
+    user.setRoles(roles);
 //    userRepository.save(user);
     return "Accepted";
   }
