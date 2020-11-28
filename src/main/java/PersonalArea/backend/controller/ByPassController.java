@@ -24,7 +24,10 @@ public class ByPassController {
   public String addRoleToUser(@RequestParam Long id) {
     User user = userRepository.getOne(id);
     Set<Role> roles = user.getRoles();
-    roles.add(new Role(3, ERole.ROLE_ADMIN));
+    Role role = new Role();
+    role.setId(null);
+    role.setName(ERole.ROLE_ADMIN);
+    roles.add(role);
     user.setRoles(roles);
     userRepository.save(user);
     return "Accepted";
