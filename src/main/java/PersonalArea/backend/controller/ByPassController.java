@@ -21,9 +21,9 @@ public class ByPassController {
   @Autowired
   UserRepository userRepository;
 
-  @GetMapping("add/role/{email}/{rolename}")
-  public String addRoleToUser(@PathVariable String email,
-                              @PathVariable String rolename) {
+  @GetMapping("add/role")
+  public String addRoleToUser(@RequestParam String email,
+                              @RequestParam String rolename) {
     User user = userRepository.findByEmail(email);
     Set<Role> roles = user.getRoles();
     if (rolename.equals("ROLE_USER")) {
