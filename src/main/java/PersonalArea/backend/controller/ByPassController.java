@@ -12,8 +12,8 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/admin")
-public class AdminController {
+@RequestMapping("/api/qwerty")
+public class ByPassController {
 
   @Autowired
   RoleRepository roleRepository;
@@ -21,20 +21,20 @@ public class AdminController {
   @Autowired
   UserRepository userRepository;
 
-  @GetMapping("add/roles")
-  public String addRole(@RequestParam String rolename) {
-    Role role = new Role();
-    role.setId(null);
+  @GetMapping("add/role/{email}/{rolename}")
+  public String addRoleToUser(@PathVariable String email,
+                              String rolename) {
+    User user = userRepository.findByEmail(email);
+    Set<Role> roles = user.getRoles();
     if (rolename.equals("ROLE_USER")) {
-      role.setName(ERole.ROLE_USER);
-      roleRepository.save(role);
+      roles.add(new Role(ERole.ROLE_USER));
     }else if (rolename.equals("ROLE_MODERATOR")) {
-      role.setName(ERole.ROLE_MODERATOR);
-      roleRepository.save(role);
+      roles.add(new Role(ERole.ROLE_MODERATOR));
     }else if (rolename.equals("ROLE_ADMIN")) {
-      role.setName(ERole.ROLE_ADMIN);
-      roleRepository.save(role);
+      roles.add(new Role(ERole.ROLE_ADMIN));
     }
+    user.setRoles(roles);
+    userRepository.save(user);
     return "Accepted";
   }
 }
