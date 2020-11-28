@@ -29,7 +29,7 @@ public class ByPassController {
     role.setName(ERole.ROLE_ADMIN);
     roles.add(role);
     user.setRoles(roles);
-    userRepository.save(user);
+//    userRepository.save(user);
     return "Accepted";
   }
 }
