@@ -37,4 +37,10 @@ public class AdminController {
     }
     return "Accepted";
   }
+
+  @GetMapping("delete/{userid}")
+  public String deleteUser(@PathVariable Long userid) {
+    userRepository.delete(new User(userid));
+    return "Delete Accepted";
+  }
 }
