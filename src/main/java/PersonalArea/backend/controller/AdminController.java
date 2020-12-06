@@ -1,14 +1,12 @@
 package PersonalArea.backend.controller;
 
-import PersonalArea.backend.models.ERole;
-import PersonalArea.backend.models.Role;
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.models.*;
 import PersonalArea.backend.repository.RoleRepository;
+import PersonalArea.backend.repository.SalaryRepository;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,6 +18,9 @@ public class AdminController {
 
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  SalaryRepository salaryRepository;
 
   @GetMapping("add/roles")
   public String addRole(@RequestParam String rolename) {
@@ -42,5 +43,18 @@ public class AdminController {
   public String deleteUser(@PathVariable Long userid) {
     userRepository.delete(new User(userid));
     return "Delete Accepted";
+  }
+
+  @PostMapping("/add/invoices")
+  public String addSalaries(@RequestParam String userid,
+                            String amount,
+                            String date) {
+    Salary salary = new Salary(null, userRepository.getOne((long) Integer.parseInt(userid)),
+        Double.parseDouble(amount),
+        date);
+    System.out.println(salary);
+    salaryRepository.save(salary);
+
+    return "Invoices Accepted";
   }
 }
