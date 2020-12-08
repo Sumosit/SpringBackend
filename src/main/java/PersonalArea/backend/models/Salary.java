@@ -15,8 +15,6 @@ public class Salary {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @OneToOne
-  private User user;
   private double amount;
   private String date;
 }

@@ -7,6 +7,9 @@ import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -49,11 +52,18 @@ public class AdminController {
   public String addSalaries(@RequestParam String userid,
                             String amount,
                             String date) {
-    Salary salary = new Salary(null, userRepository.getOne((long) Integer.parseInt(userid)),
+    Salary salary = new Salary(null,
         Double.parseDouble(amount),
         date);
-    System.out.println(salary);
     salaryRepository.save(salary);
+
+    User user = userRepository.getOne(Long.parseLong(userid));
+    Set<Salary> salaries = user.getSalaries();
+    salaries.add(salary);
+    user.setSalaries(salaries);
+    System.out.println(salaries);
+    System.out.println(user);
+    userRepository.save(user);
 
     return "Invoices Accepted";
   }

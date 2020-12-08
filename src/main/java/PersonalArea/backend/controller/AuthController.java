@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import PersonalArea.backend.models.ERole;
 import PersonalArea.backend.models.Role;
+import PersonalArea.backend.models.Salary;
 import PersonalArea.backend.models.User;
 import PersonalArea.backend.payload.request.LoginRequest;
 import PersonalArea.backend.payload.request.SignupRequest;
@@ -92,6 +93,7 @@ public class AuthController {
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
+    Set<Salary> salaries = new HashSet<>();
 
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -123,6 +125,7 @@ public class AuthController {
       });
     }
 
+    user.setSalaries(salaries);
     user.setRoles(roles);
     userRepository.save(user);
 
