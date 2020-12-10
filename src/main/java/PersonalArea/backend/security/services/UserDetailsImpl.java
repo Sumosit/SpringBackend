@@ -3,8 +3,10 @@ package PersonalArea.backend.security.services;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import PersonalArea.backend.models.Salary;
 import PersonalArea.backend.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,16 +22,19 @@ public class UserDetailsImpl implements UserDetails {
 
   private String email;
 
+  private Set<Salary> salaries;
+
   @JsonIgnore
   private String password;
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, String password,
+  public UserDetailsImpl(Long id, String username, String email, Set<Salary> salaries, String password,
                          Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
     this.email = email;
+    this.salaries = salaries;
     this.password = password;
     this.authorities = authorities;
   }
@@ -43,6 +48,7 @@ public class UserDetailsImpl implements UserDetails {
         user.getId(),
         user.getUsername(),
         user.getEmail(),
+        user.getSalaries(),
         user.getPassword(),
         authorities);
   }
@@ -68,6 +74,10 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public String getUsername() {
     return username;
+  }
+
+  public Set<Salary> getSalaries() {
+    return salaries;
   }
 
   @Override
