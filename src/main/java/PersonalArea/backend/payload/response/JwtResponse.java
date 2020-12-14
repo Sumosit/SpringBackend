@@ -1,5 +1,6 @@
 package PersonalArea.backend.payload.response;
 
+import PersonalArea.backend.models.FileDB;
 import PersonalArea.backend.models.Salary;
 
 import java.util.List;
@@ -11,14 +12,16 @@ public class JwtResponse {
   private Long id;
   private String username;
   private String email;
+  private FileDB fileDB;
   private Set<Salary> salaries;
   private List<String> roles;
 
-  public JwtResponse(String accessToken, Long id, String username, String email, Set<Salary> salaries, List<String> roles) {
+  public JwtResponse(String accessToken, Long id, String username, String email, FileDB fileDB, Set<Salary> salaries, List<String> roles) {
     this.token = accessToken;
     this.id = id;
     this.username = username;
     this.email = email;
+    this.fileDB = fileDB;
     this.salaries = salaries;
     this.roles = roles;
   }
@@ -73,5 +76,13 @@ public class JwtResponse {
 
   public void setSalaries(Set<Salary> salaries) {
     this.salaries = salaries;
+  }
+
+  public FileDB getFileDB() {
+    return fileDB;
+  }
+
+  public void setFileDB(FileDB fileDB) {
+    this.fileDB = fileDB;
   }
 }

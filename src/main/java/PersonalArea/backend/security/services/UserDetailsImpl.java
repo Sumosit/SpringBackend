@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import PersonalArea.backend.models.FileDB;
 import PersonalArea.backend.models.Salary;
 import PersonalArea.backend.models.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,8 @@ public class UserDetailsImpl implements UserDetails {
 
   private String email;
 
+  private FileDB fileDB;
+
   private Set<Salary> salaries;
 
   @JsonIgnore
@@ -29,11 +32,12 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, Set<Salary> salaries, String password,
+  public UserDetailsImpl(Long id, String username, String email, FileDB fileDB, Set<Salary> salaries, String password,
                          Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
     this.email = email;
+    this.fileDB = fileDB;
     this.salaries = salaries;
     this.password = password;
     this.authorities = authorities;
@@ -48,9 +52,20 @@ public class UserDetailsImpl implements UserDetails {
         user.getId(),
         user.getUsername(),
         user.getEmail(),
+        user.getFileDB(),
         user.getSalaries(),
         user.getPassword(),
         authorities);
+  }
+
+
+
+  public FileDB getFileDB() {
+    return fileDB;
+  }
+
+  public void setFileDB(FileDB fileDB) {
+    this.fileDB = fileDB;
   }
 
   @Override

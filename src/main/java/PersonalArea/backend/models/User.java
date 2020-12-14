@@ -34,6 +34,9 @@ public class User {
   @OneToMany
   private Set<Salary> salaries;
 
+  @OneToOne
+  private FileDB fileDB;
+
   @NotBlank
   @Size(max = 120)
   private String password;

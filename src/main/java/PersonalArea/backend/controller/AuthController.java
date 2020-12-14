@@ -7,10 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import PersonalArea.backend.models.ERole;
-import PersonalArea.backend.models.Role;
-import PersonalArea.backend.models.Salary;
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.models.*;
 import PersonalArea.backend.payload.request.LoginRequest;
 import PersonalArea.backend.payload.request.SignupRequest;
 import PersonalArea.backend.payload.response.JwtResponse;
@@ -69,6 +66,7 @@ public class AuthController {
         userDetails.getId(),
         userDetails.getUsername(),
         userDetails.getEmail(),
+        userDetails.getFileDB(),
         userDetails.getSalaries(),
         roles));
   }
@@ -95,6 +93,7 @@ public class AuthController {
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
     Set<Salary> salaries = new HashSet<>();
+
 
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
