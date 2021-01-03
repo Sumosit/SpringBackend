@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class FileUploadController {
+public class UserFileUploadController {
 
   @Autowired
   private FileStorageService storageService;

@@ -13,7 +13,7 @@ import java.util.Set;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/user")
-public class ProfileController {
+public class UserProfileController {
   @Autowired
   UserRepository userRepository;
 
