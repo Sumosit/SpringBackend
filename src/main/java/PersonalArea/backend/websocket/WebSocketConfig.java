@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry.addEndpoint("/gs-guide-websocket")
-        .setAllowedOrigins("http://localhost:8081")
+        .setAllowedOrigins("http://localhost:8081", "https://shielded-fortress-94100.herokuapp.com")
         .withSockJS();
   }
 
