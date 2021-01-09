@@ -22,7 +22,6 @@ public class NewWebSocketController {
   public News news(NewsMessage message) throws Exception {
     News news = new News(null, message.getTitle(), message.getContent());
     newsRepository.save(news);
-    System.out.println(news.getContent());
     Thread.sleep(1000); // simulated delay
     return news;
   }
