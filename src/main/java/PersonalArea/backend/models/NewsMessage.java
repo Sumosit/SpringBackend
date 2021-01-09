@@ -1,8 +1,12 @@
 package PersonalArea.backend.models;
 
+import javax.persistence.Column;
+
 public class NewsMessage {
 
+  @Column(length = 1000)
   private String title;
+  @Column(length = 3000)
   private String content;
 
   public String getTitle() {
