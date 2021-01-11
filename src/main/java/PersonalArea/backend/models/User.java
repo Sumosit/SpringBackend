@@ -60,6 +60,16 @@ public class User {
     this.id = userid;
   }
 
+  public User(Long id, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email, Set<Salary> salaries, FileDB fileDB, @NotBlank @Size(max = 120) String password, Set<Role> roles) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.salaries = salaries;
+    this.fileDB = fileDB;
+    this.password = password;
+    this.roles = roles;
+  }
+
   public Long getId() {
     return id;
   }
