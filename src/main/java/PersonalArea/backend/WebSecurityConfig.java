@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/qwerty/add/admin",
             "/api/test/all/roles",
             "/api/admin/add/roles",
+            "/api/admin/delete/roles",
             "/upload",
             "/files/*", "/files/**",
             "/gs-guide-websocket/**",
