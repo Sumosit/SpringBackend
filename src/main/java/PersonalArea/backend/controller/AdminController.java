@@ -49,6 +49,23 @@ public class AdminController {
     return "Accepted";
   }
 
+  @GetMapping("delete/roles")
+  public String deleteRole(@RequestParam String rolename) {
+    Role role = new Role();
+    role.setId(null);
+    if (rolename.equals("ROLE_USER")) {
+      role.setName(ERole.ROLE_USER);
+      roleRepository.save(role);
+    } else if (rolename.equals("ROLE_MODERATOR")) {
+      role.setName(ERole.ROLE_MODERATOR);
+      roleRepository.save(role);
+    } else if (rolename.equals("ROLE_ADMIN")) {
+      role.setName(ERole.ROLE_ADMIN);
+      roleRepository.save(role);
+    }
+    return "Delete Accepted";
+  }
+
   @GetMapping("delete/{userid}")
   public String deleteUser(@PathVariable Long userid) {
     userRepository.delete(new User(userid));
