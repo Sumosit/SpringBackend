@@ -55,13 +55,13 @@ public class AdminController {
     role.setId(null);
     if (rolename.equals("ROLE_USER")) {
       role.setName(ERole.ROLE_USER);
-      roleRepository.save(role);
+      roleRepository.delete(role);
     } else if (rolename.equals("ROLE_MODERATOR")) {
       role.setName(ERole.ROLE_MODERATOR);
-      roleRepository.save(role);
+      roleRepository.delete(role);
     } else if (rolename.equals("ROLE_ADMIN")) {
       role.setName(ERole.ROLE_ADMIN);
-      roleRepository.save(role);
+      roleRepository.delete(role);
     }
     return "Delete Accepted";
   }
