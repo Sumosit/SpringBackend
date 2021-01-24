@@ -12,15 +12,24 @@ public class JwtResponse {
   private Long id;
   private String username;
   private String email;
+  private String resume;
   private FileDB fileDB;
   private Set<Salary> salaries;
   private List<String> roles;
 
-  public JwtResponse(String accessToken, Long id, String username, String email, FileDB fileDB, Set<Salary> salaries, List<String> roles) {
+  public JwtResponse(String accessToken,
+                     Long id,
+                     String username,
+                     String email,
+                     String resume,
+                     FileDB fileDB,
+                     Set<Salary> salaries,
+                     List<String> roles) {
     this.token = accessToken;
     this.id = id;
     this.username = username;
     this.email = email;
+    this.resume = resume;
     this.fileDB = fileDB;
     this.salaries = salaries;
     this.roles = roles;
@@ -56,6 +65,14 @@ public class JwtResponse {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getResume() {
+    return resume;
+  }
+
+  public void setResume(String resume) {
+    this.resume = resume;
   }
 
   public String getUsername() {

@@ -24,14 +24,12 @@ public class FileStorageService {
   public FileDB store(MultipartFile file) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
     FileDB FileDB = new FileDB(null, fileName, file.getContentType(), file.getBytes());
-
     return fileDBRepository.save(FileDB);
   }
 
   public StorageFile storeStorageFile(MultipartFile file) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
     StorageFile storageFile = new StorageFile(null, fileName, file.getContentType(), file.getBytes());
-
     return storageFileRepository.save(storageFile);
   }
 

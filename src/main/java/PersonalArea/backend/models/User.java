@@ -1,6 +1,7 @@
 package PersonalArea.backend.models;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +31,13 @@ public class User {
   @Size(max = 50)
   @Email
   private String email;
+
+  @OneToOne
+  private UserQualifications userQualifications;
+
+  @Column(length = 1000)
+  @Value(" ")
+  private String resume;
 
   @OneToMany
   private Set<Salary> salaries;
