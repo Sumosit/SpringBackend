@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/upload",
             "/files/*", "/files/**",
             "/gs-guide-websocket/**",
+            "/api/user/one/*",
             "/user/storage/*", "/user/storage/**").permitAll()
         .antMatchers("/api/admin/***").hasRole("ADMIN")
         .anyRequest().authenticated();
