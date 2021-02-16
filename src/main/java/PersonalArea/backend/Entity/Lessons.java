@@ -1,20 +1,21 @@
-package PersonalArea.backend.models;
+package PersonalArea.backend.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
 @Entity
-public class UserQualifications {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Lessons {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String snils_ru;
-  private String IIN_ru;
-  private String phone_number;
-  private String location;
+  private String name;
 }

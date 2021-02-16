@@ -1,7 +1,7 @@
 package PersonalArea.backend.FileUploadService;
 
-import PersonalArea.backend.models.FileDB;
-import PersonalArea.backend.models.StorageFile;
+import PersonalArea.backend.Entity.FileDB;
+import PersonalArea.backend.Entity.StorageFile;
 import PersonalArea.backend.repository.FileDBRepository;
 import PersonalArea.backend.repository.StorageFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package PersonalArea.backend.controllerWebsocket;
 
-import PersonalArea.backend.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

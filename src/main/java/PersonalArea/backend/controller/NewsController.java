@@ -1,6 +1,6 @@
 package PersonalArea.backend.controller;
 
-import PersonalArea.backend.models.News;
+import PersonalArea.backend.Entity.News;
 import PersonalArea.backend.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

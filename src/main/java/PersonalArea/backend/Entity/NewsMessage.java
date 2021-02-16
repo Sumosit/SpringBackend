@@ -1,4 +1,4 @@
-package PersonalArea.backend.models;
+package PersonalArea.backend.Entity;
 
 import javax.persistence.Column;
 

@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import PersonalArea.backend.models.*;
+import PersonalArea.backend.Entity.*;
 import PersonalArea.backend.payload.request.LoginRequest;
 import PersonalArea.backend.payload.request.SignupRequest;
 import PersonalArea.backend.payload.response.JwtResponse;
 import PersonalArea.backend.payload.response.MessageResponse;
+import PersonalArea.backend.repository.PersonalDataRepository;
 import PersonalArea.backend.repository.RoleRepository;
 import PersonalArea.backend.repository.UserRepository;
 import PersonalArea.backend.security.jwt.JwtUtils;
@@ -43,6 +44,9 @@ public class AuthController {
   RoleRepository roleRepository;
 
   @Autowired
+  PersonalDataRepository personalDataRepository;
+
+  @Autowired
   PasswordEncoder encoder;
 
   @Autowired
@@ -68,6 +72,10 @@ public class AuthController {
         userDetails.getEmail(),
         userDetails.getResume(),
         userDetails.getFileDB(),
+        userDetails.getPersonalData(),
+        userDetails.getEducationSet(),
+        userDetails.getTrainingSet(),
+        userDetails.getLessonsSet(),
         userDetails.getSalaries(),
         roles));
   }
@@ -94,7 +102,8 @@ public class AuthController {
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
     Set<Salary> salaries = new HashSet<>();
-
+    PersonalData personalData = new PersonalData();
+    personalDataRepository.save(personalData);
 
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -126,6 +135,7 @@ public class AuthController {
       });
     }
 
+    user.setPersonalData(personalData);
     user.setSalaries(salaries);
     user.setRoles(roles);
     userRepository.save(user);

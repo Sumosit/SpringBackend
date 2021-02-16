@@ -1,6 +1,6 @@
 package PersonalArea.backend.controller;
 
-import PersonalArea.backend.models.*;
+import PersonalArea.backend.Entity.*;
 import PersonalArea.backend.repository.RoleRepository;
 import PersonalArea.backend.repository.SalaryRepository;
 import PersonalArea.backend.repository.UserRepository;
@@ -9,12 +9,10 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 

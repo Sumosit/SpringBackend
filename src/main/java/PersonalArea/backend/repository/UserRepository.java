@@ -2,7 +2,7 @@ package PersonalArea.backend.repository;
 
 import java.util.Optional;
 
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package PersonalArea.backend.security.services;
 
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.Entity.User;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

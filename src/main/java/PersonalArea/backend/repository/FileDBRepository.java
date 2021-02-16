@@ -1,6 +1,6 @@
 package PersonalArea.backend.repository;
 
-import PersonalArea.backend.models.FileDB;
+import PersonalArea.backend.Entity.FileDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

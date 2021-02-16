@@ -2,15 +2,13 @@ package PersonalArea.backend.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import PersonalArea.backend.FileUploadService.FileStorageService;
 import PersonalArea.backend.FileUploadService.ResponseFile;
-import PersonalArea.backend.models.FileDB;
-import PersonalArea.backend.models.StorageFile;
-import PersonalArea.backend.models.User;
-import PersonalArea.backend.repository.StorageFileRepository;
+import PersonalArea.backend.Entity.FileDB;
+import PersonalArea.backend.Entity.StorageFile;
+import PersonalArea.backend.Entity.User;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

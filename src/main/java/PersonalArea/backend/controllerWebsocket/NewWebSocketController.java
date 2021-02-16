@@ -1,17 +1,13 @@
 package PersonalArea.backend.controllerWebsocket;
 
-import PersonalArea.backend.models.News;
-import PersonalArea.backend.models.NewsMessage;
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.Entity.News;
+import PersonalArea.backend.Entity.NewsMessage;
 import PersonalArea.backend.repository.NewsRepository;
 import PersonalArea.backend.repository.UserRepository;
-import PersonalArea.backend.websocket.Greeting;
-import PersonalArea.backend.websocket.HelloMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.util.HtmlUtils;
 
 import java.sql.Timestamp;
 

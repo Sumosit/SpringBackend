@@ -1,7 +1,6 @@
 package PersonalArea.backend.payload.response;
 
-import PersonalArea.backend.models.FileDB;
-import PersonalArea.backend.models.Salary;
+import PersonalArea.backend.Entity.*;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +13,10 @@ public class JwtResponse {
   private String email;
   private String resume;
   private FileDB fileDB;
+  private PersonalData personalData;
+  private Set<Education> educationSet;
+  private Set<Training> trainingSet;
+  private Set<Lessons> lessonsSet;
   private Set<Salary> salaries;
   private List<String> roles;
 
@@ -23,6 +26,10 @@ public class JwtResponse {
                      String email,
                      String resume,
                      FileDB fileDB,
+                     PersonalData personalData,
+                     Set<Education> educationSet,
+                     Set<Training> trainingSet,
+                     Set<Lessons> lessonsSet,
                      Set<Salary> salaries,
                      List<String> roles) {
     this.token = accessToken;
@@ -31,6 +38,10 @@ public class JwtResponse {
     this.email = email;
     this.resume = resume;
     this.fileDB = fileDB;
+    this.personalData = personalData;
+    this.educationSet = educationSet;
+    this.trainingSet = trainingSet;
+    this.lessonsSet = lessonsSet;
     this.salaries = salaries;
     this.roles = roles;
   }
@@ -85,6 +96,26 @@ public class JwtResponse {
 
   public List<String> getRoles() {
     return roles;
+  }
+
+  public PersonalData getPersonalData() {
+    return personalData;
+  }
+
+  public Set<Education> getEducationSet() {
+    return educationSet;
+  }
+
+  public Set<Training> getTrainingSet() {
+    return trainingSet;
+  }
+
+  public Set<Lessons> getLessonsSet() {
+    return lessonsSet;
+  }
+
+  public void setPersonalData(PersonalData personalData) {
+    this.personalData = personalData;
   }
 
   public Set<Salary> getSalaries() {

@@ -1,8 +1,7 @@
 package PersonalArea.backend.controller;
 
-import PersonalArea.backend.models.ERole;
-import PersonalArea.backend.models.Role;
-import PersonalArea.backend.models.User;
+import PersonalArea.backend.Entity.Role;
+import PersonalArea.backend.Entity.User;
 import PersonalArea.backend.repository.RoleRepository;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

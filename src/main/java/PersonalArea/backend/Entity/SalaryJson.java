@@ -1,6 +1,4 @@
-package PersonalArea.backend.models;
-
-import javax.persistence.OneToOne;
+package PersonalArea.backend.Entity;
 
 public class SalaryJson {
   private Long id;

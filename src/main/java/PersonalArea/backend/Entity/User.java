@@ -1,4 +1,4 @@
-package PersonalArea.backend.models;
+package PersonalArea.backend.Entity;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,8 +33,13 @@ public class User {
   private String email;
 
   @OneToOne
-  private UserQualifications userQualifications;
-
+  private PersonalData personalData;
+  @OneToMany
+  private Set<Education> education;
+  @OneToMany
+  private Set<Training> training;
+  @OneToMany
+  private Set<Lessons> lessons;
   @Column(length = 1000)
   @Value(" ")
   private String resume;
