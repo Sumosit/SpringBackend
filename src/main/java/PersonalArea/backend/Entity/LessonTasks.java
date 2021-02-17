@@ -7,15 +7,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Lessons {
+public class LessonTasks {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  private String description;
   @OneToMany
-  private Set<LessonTasks> lessonTasksSet;
+  private Set<FileDB> fileDBSet;
 }

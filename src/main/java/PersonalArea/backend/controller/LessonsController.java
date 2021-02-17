@@ -49,7 +49,8 @@ public class LessonsController {
       User user = userRepository.getOne(userId);
       Lessons lesson = new Lessons(
           null,
-          lessonName
+          lessonName,
+          null
       );
       lessonsRepository.save(lesson);
       user.getLessons().add(lesson);
