@@ -17,5 +17,9 @@ public class Lessons {
   private Long id;
   private String name;
   @OneToMany
-  private Set<LessonTasks> lessonTasksSet;
+  private Set<LessonsTasks> lessonsTasksSet;
+
+  public Lessons(Long lessonId) {
+    this.id = lessonId;
+  }
 }

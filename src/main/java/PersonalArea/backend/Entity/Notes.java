@@ -4,23 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
+public class Notes {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long authorId;
-  private String authorUsername;
-  private String authorAvatar;
-  @Column(length = 1000)
-  private String title;
-  @Column(length = 3000)
-  private String content;
+  private int year, month, day;
   private Timestamp date;
+  private String title, description;
 }

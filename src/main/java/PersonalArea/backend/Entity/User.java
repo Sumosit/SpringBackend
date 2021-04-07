@@ -40,6 +40,8 @@ public class User {
   private Set<Training> training;
   @OneToMany
   private Set<Lessons> lessons;
+  @OneToMany
+  private Set<Notes> reminders;
   @Column(length = 1000)
   @Value(" ")
   private String resume;

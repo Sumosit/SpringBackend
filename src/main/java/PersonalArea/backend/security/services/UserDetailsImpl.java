@@ -24,6 +24,7 @@ public class UserDetailsImpl implements UserDetails {
   private Set<Education> educationSet;
   private Set<Training> trainingSet;
   private Set<Lessons> lessonsSet;
+  private Set<Notes> reminders;
   private Set<Salary> salaries;
 
   @JsonIgnore
@@ -37,6 +38,7 @@ public class UserDetailsImpl implements UserDetails {
                          Set<Education> educationSet,
                          Set<Training> trainingSet,
                          Set<Lessons> lessonsSet,
+                         Set<Notes> reminders,
                          Set<Salary> salaries,
                          String password,
                          Collection<? extends GrantedAuthority> authorities) {
@@ -49,6 +51,7 @@ public class UserDetailsImpl implements UserDetails {
     this.educationSet = educationSet;
     this.trainingSet = trainingSet;
     this.lessonsSet = lessonsSet;
+    this.reminders = reminders;
     this.salaries = salaries;
     this.password = password;
     this.authorities = authorities;
@@ -69,6 +72,7 @@ public class UserDetailsImpl implements UserDetails {
         user.getEducation(),
         user.getTraining(),
         user.getLessons(),
+        user.getReminders(),
         user.getSalaries(),
         user.getPassword(),
         authorities);
@@ -124,6 +128,10 @@ public class UserDetailsImpl implements UserDetails {
 
   public Set<Lessons> getLessonsSet() {
     return lessonsSet;
+  }
+
+  public Set<Notes> getReminders() {
+    return reminders;
   }
 
   public Set<Salary> getSalaries() {

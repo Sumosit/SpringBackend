@@ -3,6 +3,7 @@ package PersonalArea.backend.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class LessonTasks {
+public class LessonsTasks {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

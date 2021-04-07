@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRestForm {
-  private String content;
+  private Long id;
+  private String message;
   private Long chatId;
   private Long userId;
-
 }
