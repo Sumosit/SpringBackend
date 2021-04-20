@@ -12,6 +12,7 @@ import PersonalArea.backend.payload.request.LoginRequest;
 import PersonalArea.backend.payload.request.SignupRequest;
 import PersonalArea.backend.payload.response.JwtResponse;
 import PersonalArea.backend.payload.response.MessageResponse;
+import PersonalArea.backend.repository.MemoryRepository;
 import PersonalArea.backend.repository.PersonalDataRepository;
 import PersonalArea.backend.repository.RoleRepository;
 import PersonalArea.backend.repository.UserRepository;
@@ -47,6 +48,9 @@ public class AuthController {
   PersonalDataRepository personalDataRepository;
 
   @Autowired
+  MemoryRepository memoryRepository;
+
+  @Autowired
   PasswordEncoder encoder;
 
   @Autowired
@@ -75,7 +79,7 @@ public class AuthController {
         userDetails.getPersonalData(),
         userDetails.getEducationSet(),
         userDetails.getTrainingSet(),
-        userDetails.getLessonsSet(),
+        userDetails.getMemory(),
         userDetails.getSalaries(),
         roles));
   }
@@ -98,12 +102,17 @@ public class AuthController {
     User user = new User(signUpRequest.getUsername(),
         signUpRequest.getEmail(),
         encoder.encode(signUpRequest.getPassword()));
-
+    userRepository.save(user);
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
     Set<Salary> salaries = new HashSet<>();
     PersonalData personalData = new PersonalData();
+    Memory memory = new Memory();
+    memory.setUserId(user.getId());
+    memory.setName(user.getUsername()+" memory");
+
     personalDataRepository.save(personalData);
+    memoryRepository.save(memory);
 
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -136,6 +145,7 @@ public class AuthController {
     }
 
     user.setPersonalData(personalData);
+    user.setMemory(memory);
     user.setSalaries(salaries);
     user.setRoles(roles);
     userRepository.save(user);

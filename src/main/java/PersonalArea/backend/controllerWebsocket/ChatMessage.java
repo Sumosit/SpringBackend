@@ -1,13 +1,11 @@
 package PersonalArea.backend.controllerWebsocket;
 
+import PersonalArea.backend.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,6 +17,8 @@ public class ChatMessage {
     private Long id;
 
     private String message;
-    private Long chatId;
-    private Long userId;
+    @OneToOne
+    private User chatId;
+    @OneToOne
+    private User userId;
 }

@@ -23,7 +23,7 @@ public class UserDetailsImpl implements UserDetails {
   private PersonalData personalData;
   private Set<Education> educationSet;
   private Set<Training> trainingSet;
-  private Set<Lessons> lessonsSet;
+  private Memory memory;
   private Set<Notes> reminders;
   private Set<Salary> salaries;
 
@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
                          PersonalData personalData,
                          Set<Education> educationSet,
                          Set<Training> trainingSet,
-                         Set<Lessons> lessonsSet,
+                         Memory memory,
                          Set<Notes> reminders,
                          Set<Salary> salaries,
                          String password,
@@ -50,7 +50,7 @@ public class UserDetailsImpl implements UserDetails {
     this.personalData = personalData;
     this.educationSet = educationSet;
     this.trainingSet = trainingSet;
-    this.lessonsSet = lessonsSet;
+    this.memory = memory;
     this.reminders = reminders;
     this.salaries = salaries;
     this.password = password;
@@ -71,7 +71,7 @@ public class UserDetailsImpl implements UserDetails {
         user.getPersonalData(),
         user.getEducation(),
         user.getTraining(),
-        user.getLessons(),
+        user.getMemory(),
         user.getReminders(),
         user.getSalaries(),
         user.getPassword(),
@@ -126,8 +126,8 @@ public class UserDetailsImpl implements UserDetails {
     return trainingSet;
   }
 
-  public Set<Lessons> getLessonsSet() {
-    return lessonsSet;
+  public Memory getMemory() {
+    return memory;
   }
 
   public Set<Notes> getReminders() {

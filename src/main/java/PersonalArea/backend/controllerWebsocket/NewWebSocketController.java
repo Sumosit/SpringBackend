@@ -25,9 +25,7 @@ public class NewWebSocketController {
   public News news(NewsMessage message) throws Exception {
     News news = new News(
         null,
-        message.getAuthorId(),
-        message.getAuthorUsername(),
-        message.getAuthorAvatar(),
+        userRepository.findUserById(message.getAuthorId()),
         message.getTitle(),
         message.getContent(),
         Timestamp.valueOf(message.getDate()));

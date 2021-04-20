@@ -1,5 +1,6 @@
 package PersonalArea.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -32,20 +33,26 @@ public class User {
   @Email
   private String email;
 
+  @JsonIgnore
   @OneToOne
   private PersonalData personalData;
+  @JsonIgnore
   @OneToMany
   private Set<Education> education;
+  @JsonIgnore
   @OneToMany
   private Set<Training> training;
-  @OneToMany
-  private Set<Lessons> lessons;
+  @JsonIgnore
+  @OneToOne
+  private Memory memory;
+  @JsonIgnore
   @OneToMany
   private Set<Notes> reminders;
   @Column(length = 1000)
   @Value(" ")
   private String resume;
 
+  @JsonIgnore
   @OneToMany
   private Set<Salary> salaries;
 
@@ -56,7 +63,8 @@ public class User {
   @Size(max = 120)
   private String password;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @JsonIgnore
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(	name = "user_roles",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "role_id"))

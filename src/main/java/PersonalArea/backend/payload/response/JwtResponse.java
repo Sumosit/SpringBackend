@@ -16,7 +16,7 @@ public class JwtResponse {
   private PersonalData personalData;
   private Set<Education> educationSet;
   private Set<Training> trainingSet;
-  private Set<Lessons> lessonsSet;
+  private Memory memory;
   private Set<Salary> salaries;
   private List<String> roles;
 
@@ -29,7 +29,7 @@ public class JwtResponse {
                      PersonalData personalData,
                      Set<Education> educationSet,
                      Set<Training> trainingSet,
-                     Set<Lessons> lessonsSet,
+                     Memory memory,
                      Set<Salary> salaries,
                      List<String> roles) {
     this.token = accessToken;
@@ -41,7 +41,7 @@ public class JwtResponse {
     this.personalData = personalData;
     this.educationSet = educationSet;
     this.trainingSet = trainingSet;
-    this.lessonsSet = lessonsSet;
+    this.memory = memory;
     this.salaries = salaries;
     this.roles = roles;
   }
@@ -110,8 +110,8 @@ public class JwtResponse {
     return trainingSet;
   }
 
-  public Set<Lessons> getLessonsSet() {
-    return lessonsSet;
+  public Memory getMemory() {
+    return memory;
   }
 
   public void setPersonalData(PersonalData personalData) {

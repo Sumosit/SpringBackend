@@ -17,8 +17,10 @@ public class ChatId {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Long senderId;
-  private Long recipientId;
+  @OneToOne
+  private User sender;
+  @OneToOne
+  private User recipient;
   @OneToMany(fetch = FetchType.EAGER)
   private Set<ChatMessage> chatMessageSet;
 }

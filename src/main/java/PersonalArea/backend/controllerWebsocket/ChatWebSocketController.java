@@ -1,7 +1,7 @@
 package PersonalArea.backend.controllerWebsocket;
 
-import PersonalArea.backend.Entity.ChatHistory;
 import PersonalArea.backend.Entity.ChatId;
+import PersonalArea.backend.Entity.User;
 import PersonalArea.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,7 +9,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,9 +34,16 @@ public class ChatWebSocketController {
 
   @MessageMapping("/chat/{id}")
   @SendTo("/topic/chat/{id}")
-  public ChatRestForm greeting(ChatMessage chatMessage) throws Exception {
+  public ChatMessage greeting(ChatRestForm chatRestForm) throws Exception {
     Thread.sleep(1000);
-    Optional<ChatId> isNull = chatIdRepository.findById(chatMessage.getChatId());
+    ChatMessage chatMessage =
+        new ChatMessage(
+            null,
+            chatRestForm.getMessage(),
+            userRepository.findUserById(chatRestForm.getChatId()),
+            userRepository.findUserById(chatRestForm.getUserId())
+        );
+    Optional<ChatId> isNull = chatIdRepository.findById(chatRestForm.getChatId());
     if (isNull.isPresent()) {
       ChatId chatId = isNull.get();
       Set<ChatMessage> chatMessageSet = chatId.getChatMessageSet();
@@ -46,7 +52,7 @@ public class ChatWebSocketController {
       chatId.setChatMessageSet(chatMessageSet);
       chatIdRepository.save(chatId);
       System.out.println(chatId);
-      return new ChatRestForm(
+      return new ChatMessage(
           chatMessage.getId(),
           HtmlUtils.htmlEscape(
               chatMessage.getMessage()),
@@ -61,7 +67,11 @@ public class ChatWebSocketController {
     try {
       if (!chatIdRepository.existsAllBySenderIdAndRecipientId(id1, id2)
           && !chatIdRepository.existsAllByRecipientIdAndSenderId(id1, id2)) {
-        chatIdRepository.save(new ChatId(null, id1, id2, null));
+        chatIdRepository.save(new ChatId(
+            null,
+            userRepository.findUserById(id1),
+            userRepository.findUserById(id2),
+            null));
         return "True";
       } else {
         return "This chat already exists";
@@ -78,6 +88,7 @@ public class ChatWebSocketController {
 
   @GetMapping("/api/chat/all/{user_id}")
   public List<ChatId> getAllChatById(@PathVariable Long user_id) {
-    return chatIdRepository.findAllBySenderIdOrRecipientId(user_id, user_id);
+    User user = userRepository.findUserById(user_id);
+    return chatIdRepository.findAllBySenderOrRecipient(user, user);
   }
 }
