@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(	name = "users",
+@Table(name = "users",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
@@ -34,19 +34,19 @@ public class User {
   private String email;
 
   @JsonIgnore
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   private PersonalData personalData;
   @JsonIgnore
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   private Set<Education> education;
   @JsonIgnore
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   private Set<Training> training;
   @JsonIgnore
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   private Memory memory;
   @JsonIgnore
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   private Set<Notes> reminders;
   @Column(length = 1000)
   @Value(" ")
@@ -63,7 +63,6 @@ public class User {
   @Size(max = 120)
   private String password;
 
-  @JsonIgnore
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(	name = "user_roles",
       joinColumns = @JoinColumn(name = "user_id"),

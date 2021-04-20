@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -36,41 +34,35 @@ public class ChatWebSocketController {
   @SendTo("/topic/chat/{id}")
   public ChatMessage greeting(ChatRestForm chatRestForm) throws Exception {
     Thread.sleep(1000);
-    ChatMessage chatMessage =
-        new ChatMessage(
-            null,
-            chatRestForm.getMessage(),
-            userRepository.findUserById(chatRestForm.getChatId()),
-            userRepository.findUserById(chatRestForm.getUserId())
-        );
-    Optional<ChatId> isNull = chatIdRepository.findById(chatRestForm.getChatId());
-    if (isNull.isPresent()) {
-      ChatId chatId = isNull.get();
-      Set<ChatMessage> chatMessageSet = chatId.getChatMessageSet();
+    try {
+      ChatMessage chatMessage =
+          new ChatMessage(
+              null,
+              chatRestForm.getMessage(),
+              userRepository.findUserById(chatRestForm.getUserId())
+              );
       chatMessageRepository.save(chatMessage);
-      chatMessageSet.add(chatMessage);
-      chatId.setChatMessageSet(chatMessageSet);
+      ChatId chatId = chatIdRepository.findChatIdById(chatRestForm.getChatId());
+      Set<ChatMessage> chatMessages = chatId.getChatMessageSet();
+      chatMessages.add(chatMessage);
       chatIdRepository.save(chatId);
-      System.out.println(chatId);
-      return new ChatMessage(
-          chatMessage.getId(),
-          HtmlUtils.htmlEscape(
-              chatMessage.getMessage()),
-          chatMessage.getChatId(),
-          chatMessage.getUserId());
+      return chatMessage;
+    } catch (Exception e) {
+      return null;
     }
-    return null;
   }
 
   @PostMapping("/api/chat/add")
   public String createChat(@RequestParam Long id1, Long id2) {
     try {
-      if (!chatIdRepository.existsAllBySenderIdAndRecipientId(id1, id2)
-          && !chatIdRepository.existsAllByRecipientIdAndSenderId(id1, id2)) {
+      User sender = userRepository.findUserById(id1);
+      User rec = userRepository.findUserById(id2);
+      if (!chatIdRepository.existsAllBySenderAndRecipient(sender, rec)
+          && !chatIdRepository.existsAllByRecipientAndSender(sender, rec)) {
         chatIdRepository.save(new ChatId(
             null,
-            userRepository.findUserById(id1),
-            userRepository.findUserById(id2),
+            sender,
+            rec,
             null));
         return "True";
       } else {

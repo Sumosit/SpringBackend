@@ -60,6 +60,7 @@ public class MemoriesController {
         FileDB fileDB = storageService.store(file);
         memory.getFileDBSet().add(fileDB);
       }
+      memoryRepository.save(memory);
       return "Accepted";
     } catch (Exception e) {
       return e.getMessage();

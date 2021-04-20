@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ChatIdRepository extends JpaRepository<ChatId, Long> {
+  ChatId findChatIdById(Long chat_id);
   List<ChatId> findAllBySenderOrRecipient(User senderId, User recipientId);
-  boolean existsAllBySenderIdAndRecipientId(Long senderId, Long recipientId);
-  boolean existsAllByRecipientIdAndSenderId(Long senderId, Long recipientId);
+  boolean existsAllBySenderAndRecipient(User senderId, User recipientId);
+  boolean existsAllByRecipientAndSender(User senderId, User recipientId);
 }
