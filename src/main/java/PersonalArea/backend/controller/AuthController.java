@@ -13,8 +13,8 @@ import PersonalArea.backend.payload.request.SignupRequest;
 import PersonalArea.backend.payload.response.JwtResponse;
 import PersonalArea.backend.payload.response.MessageResponse;
 import PersonalArea.backend.repository.MemoryRepository;
-import PersonalArea.backend.repository.PersonalDataRepository;
 import PersonalArea.backend.repository.RoleRepository;
+import PersonalArea.backend.repository.UserExtraRepository;
 import PersonalArea.backend.repository.UserRepository;
 import PersonalArea.backend.security.jwt.JwtUtils;
 import PersonalArea.backend.security.services.UserDetailsImpl;
@@ -45,10 +45,10 @@ public class AuthController {
   RoleRepository roleRepository;
 
   @Autowired
-  PersonalDataRepository personalDataRepository;
+  MemoryRepository memoryRepository;
 
   @Autowired
-  MemoryRepository memoryRepository;
+  UserExtraRepository userExtraRepository;
 
   @Autowired
   PasswordEncoder encoder;
@@ -73,13 +73,15 @@ public class AuthController {
     return ResponseEntity.ok(new JwtResponse(jwt,
         userDetails.getId(),
         userDetails.getUsername(),
+        userDetails.getName(),
+        userDetails.getSurname(),
         userDetails.getEmail(),
+        userDetails.getUserExtra(),
+        userDetails.getMemory(),
+        userDetails.getReminders(),
+        userDetails.getTasks(),
         userDetails.getResume(),
         userDetails.getFileDB(),
-        userDetails.getPersonalData(),
-        userDetails.getEducationSet(),
-        userDetails.getTrainingSet(),
-        userDetails.getMemory(),
         userDetails.getSalaries(),
         roles));
   }
@@ -106,12 +108,12 @@ public class AuthController {
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
     Set<Salary> salaries = new HashSet<>();
-    PersonalData personalData = new PersonalData();
+    UserExtra userExtra = new UserExtra();
     Memory memory = new Memory();
     memory.setUserId(user.getId());
     memory.setName(user.getUsername()+" memory");
 
-    personalDataRepository.save(personalData);
+    userExtraRepository.save(userExtra);
     memoryRepository.save(memory);
 
     if (strRoles == null) {
@@ -144,8 +146,8 @@ public class AuthController {
       });
     }
 
-    user.setPersonalData(personalData);
     user.setMemory(memory);
+    user.setUserExtra(userExtra);
     user.setSalaries(salaries);
     user.setRoles(roles);
     userRepository.save(user);

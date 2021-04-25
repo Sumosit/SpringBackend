@@ -9,40 +9,95 @@ public class JwtResponse {
   private String token;
   private String type = "Bearer";
   private Long id;
-  private String username;
+  private String username, name, surname;
   private String email;
+  private UserExtra userExtra;
+  private Memory memory;
+  private Set<Notes> reminders;
+  private Set<Task> tasks;
   private String resume;
   private FileDB fileDB;
-  private PersonalData personalData;
-  private Set<Education> educationSet;
-  private Set<Training> trainingSet;
-  private Memory memory;
   private Set<Salary> salaries;
   private List<String> roles;
 
-  public JwtResponse(String accessToken,
-                     Long id,
-                     String username,
-                     String email,
-                     String resume,
-                     FileDB fileDB,
-                     PersonalData personalData,
-                     Set<Education> educationSet,
-                     Set<Training> trainingSet,
-                     Memory memory,
-                     Set<Salary> salaries,
-                     List<String> roles) {
-    this.token = accessToken;
+  public JwtResponse(String token, Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, Set<Salary> salaries, List<String> roles) {
+    this.token = token;
     this.id = id;
     this.username = username;
+    this.name = name;
+    this.surname = surname;
     this.email = email;
+    this.userExtra = userExtra;
+    this.memory = memory;
+    this.reminders = reminders;
+    this.tasks = tasks;
     this.resume = resume;
     this.fileDB = fileDB;
-    this.personalData = personalData;
-    this.educationSet = educationSet;
-    this.trainingSet = trainingSet;
-    this.memory = memory;
     this.salaries = salaries;
+    this.roles = roles;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getSurname() {
+    return surname;
+  }
+
+  public void setSurname(String surname) {
+    this.surname = surname;
+  }
+
+  public UserExtra getUserExtra() {
+    return userExtra;
+  }
+
+  public void setUserExtra(UserExtra userExtra) {
+    this.userExtra = userExtra;
+  }
+
+  public void setMemory(Memory memory) {
+    this.memory = memory;
+  }
+
+  public Set<Notes> getReminders() {
+    return reminders;
+  }
+
+  public void setReminders(Set<Notes> reminders) {
+    this.reminders = reminders;
+  }
+
+  public Set<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(Set<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  public void setRoles(List<String> roles) {
     this.roles = roles;
   }
 
@@ -98,24 +153,8 @@ public class JwtResponse {
     return roles;
   }
 
-  public PersonalData getPersonalData() {
-    return personalData;
-  }
-
-  public Set<Education> getEducationSet() {
-    return educationSet;
-  }
-
-  public Set<Training> getTrainingSet() {
-    return trainingSet;
-  }
-
   public Memory getMemory() {
     return memory;
-  }
-
-  public void setPersonalData(PersonalData personalData) {
-    this.personalData = personalData;
   }
 
   public Set<Salary> getSalaries() {

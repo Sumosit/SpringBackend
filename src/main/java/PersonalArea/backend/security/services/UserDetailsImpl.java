@@ -16,15 +16,14 @@ public class UserDetailsImpl implements UserDetails {
   private static final long serialVersionUID = 1L;
 
   private Long id;
-  private String username;
+  private String username, name, surname;
   private String email;
-  private String resume;
-  private FileDB fileDB;
-  private PersonalData personalData;
-  private Set<Education> educationSet;
-  private Set<Training> trainingSet;
+  private UserExtra userExtra;
   private Memory memory;
   private Set<Notes> reminders;
+  private Set<Task> tasks;
+  private String resume;
+  private FileDB fileDB;
   private Set<Salary> salaries;
 
   @JsonIgnore
@@ -32,26 +31,18 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, String resume,
-                         FileDB fileDB,
-                         PersonalData personalData,
-                         Set<Education> educationSet,
-                         Set<Training> trainingSet,
-                         Memory memory,
-                         Set<Notes> reminders,
-                         Set<Salary> salaries,
-                         String password,
-                         Collection<? extends GrantedAuthority> authorities) {
+  public UserDetailsImpl(Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, Set<Salary> salaries, String password, Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
+    this.name = name;
+    this.surname = surname;
     this.email = email;
-    this.resume = resume;
-    this.fileDB = fileDB;
-    this.personalData = personalData;
-    this.educationSet = educationSet;
-    this.trainingSet = trainingSet;
+    this.userExtra = userExtra;
     this.memory = memory;
     this.reminders = reminders;
+    this.tasks = tasks;
+    this.resume = resume;
+    this.fileDB = fileDB;
     this.salaries = salaries;
     this.password = password;
     this.authorities = authorities;
@@ -65,19 +56,63 @@ public class UserDetailsImpl implements UserDetails {
     return new UserDetailsImpl(
         user.getId(),
         user.getUsername(),
+        user.getName(),
+        user.getSurname(),
         user.getEmail(),
-        user.getResume(),
-        user.getFileDB(),
-        user.getPersonalData(),
-        user.getEducation(),
-        user.getTraining(),
+        user.getUserExtra(),
         user.getMemory(),
         user.getReminders(),
+        user.getTasks(),
+        user.getResume(),
+        user.getFileDB(),
         user.getSalaries(),
         user.getPassword(),
         authorities);
   }
 
+  public UserExtra getUserExtra() {
+    return userExtra;
+  }
+
+  public void setUserExtra(UserExtra userExtra) {
+    this.userExtra = userExtra;
+  }
+
+  public void setMemory(Memory memory) {
+    this.memory = memory;
+  }
+
+  public void setReminders(Set<Notes> reminders) {
+    this.reminders = reminders;
+  }
+
+  public Set<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(Set<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  public void setResume(String resume) {
+    this.resume = resume;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getSurname() {
+    return surname;
+  }
+
+  public void setSurname(String surname) {
+    this.surname = surname;
+  }
 
   public FileDB getFileDB() {
     return fileDB;
@@ -112,18 +147,6 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public String getUsername() {
     return username;
-  }
-
-  public PersonalData getPersonalData() {
-    return personalData;
-  }
-
-  public Set<Education> getEducationSet() {
-    return educationSet;
-  }
-
-  public Set<Training> getTrainingSet() {
-    return trainingSet;
   }
 
   public Memory getMemory() {

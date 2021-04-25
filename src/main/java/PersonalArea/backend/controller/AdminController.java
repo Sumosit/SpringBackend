@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -30,7 +31,16 @@ public class AdminController {
   @Autowired
   SalaryRepository salaryRepository;
 
-  @GetMapping("add/roles")
+  @GetMapping("/users/all")
+  public List<User> adminAllUsers() {
+    try {
+      return userRepository.findAll();
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @GetMapping("/add/roles")
   public String addRole(@RequestParam String rolename) {
     Role role = new Role();
     role.setId(null);
@@ -47,7 +57,7 @@ public class AdminController {
     return "Accepted";
   }
 
-  @GetMapping("delete/roles")
+  @GetMapping("/delete/roles")
   public String deleteRole(@RequestParam String rolename) {
     Role role = new Role();
     role.setId(null);
