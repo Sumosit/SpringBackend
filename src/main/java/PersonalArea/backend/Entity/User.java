@@ -51,15 +51,11 @@ public class User {
   private Set<Notes> reminders;
   @Column(length = 1000)
   @JsonIgnore
-  @OneToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER)
   private Set<Task> tasks;
   @Column(length = 1000)
   @Value(" ")
   private String resume;
-
-  @JsonIgnore
-  @OneToMany
-  private Set<Salary> salaries;
 
   @OneToOne
   private FileDB fileDB;
@@ -93,14 +89,12 @@ public class User {
           String username,
       @NotBlank @Size(max = 50)
       @Email String email,
-      Set<Salary> salaries,
       FileDB fileDB,
       @NotBlank @Size(max = 120) String password,
       Set<Role> roles) {
     this.id = id;
     this.username = username;
     this.email = email;
-    this.salaries = salaries;
     this.fileDB = fileDB;
     this.password = password;
     this.roles = roles;
@@ -160,14 +154,6 @@ public class User {
 
   public void setResume(String resume) {
     this.resume = resume;
-  }
-
-  public Set<Salary> getSalaries() {
-    return salaries;
-  }
-
-  public void setSalaries(Set<Salary> salaries) {
-    this.salaries = salaries;
   }
 
   public FileDB getFileDB() {

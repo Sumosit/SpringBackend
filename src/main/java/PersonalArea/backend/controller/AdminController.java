@@ -2,7 +2,6 @@ package PersonalArea.backend.controller;
 
 import PersonalArea.backend.Entity.*;
 import PersonalArea.backend.repository.RoleRepository;
-import PersonalArea.backend.repository.SalaryRepository;
 import PersonalArea.backend.repository.UserRepository;
 import com.google.gson.Gson;
 
@@ -27,9 +26,6 @@ public class AdminController {
 
   @Autowired
   UserRepository userRepository;
-
-  @Autowired
-  SalaryRepository salaryRepository;
 
   @GetMapping("/users/all")
   public List<User> adminAllUsers() {
@@ -78,31 +74,5 @@ public class AdminController {
   public String deleteUser(@PathVariable Long userid) {
     userRepository.delete(new User(userid));
     return "Delete Accepted";
-  }
-
-  @PostMapping("/add/invoices")
-  public String addSalaries(@RequestParam("salaries") String salariesjson) {
-    salariesjson = "[" + salariesjson + "]";
-
-//    try {
-      Gson gson = new Gson();
-      Type salaryListType = new TypeToken<ArrayList<Salary>>() {
-      }.getType();
-      ArrayList<Salary> salaries = gson.fromJson(salariesjson, salaryListType);
-
-      for (Salary salary : salaries) {
-        User user = userRepository.getOne(Long.parseLong(String.valueOf(salary.getId())));
-        salary.setId(null);
-        Set<Salary> userSalaries = user.getSalaries();
-        salaryRepository.save(salary);
-        userSalaries.add(salary);
-        user.setSalaries(userSalaries);
-        userRepository.save(user);
-        System.out.println(salary);
-      }
-      return "True";
-//    } catch (Exception e) {
-//      return "False";
-//    }
   }
 }

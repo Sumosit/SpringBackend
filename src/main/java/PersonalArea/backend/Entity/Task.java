@@ -1,15 +1,13 @@
 package PersonalArea.backend.Entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 public class Task {

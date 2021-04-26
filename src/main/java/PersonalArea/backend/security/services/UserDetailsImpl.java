@@ -24,14 +24,13 @@ public class UserDetailsImpl implements UserDetails {
   private Set<Task> tasks;
   private String resume;
   private FileDB fileDB;
-  private Set<Salary> salaries;
 
   @JsonIgnore
   private String password;
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, Set<Salary> salaries, String password, Collection<? extends GrantedAuthority> authorities) {
+  public UserDetailsImpl(Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, String password, Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
     this.name = name;
@@ -43,7 +42,6 @@ public class UserDetailsImpl implements UserDetails {
     this.tasks = tasks;
     this.resume = resume;
     this.fileDB = fileDB;
-    this.salaries = salaries;
     this.password = password;
     this.authorities = authorities;
   }
@@ -65,7 +63,6 @@ public class UserDetailsImpl implements UserDetails {
         user.getTasks(),
         user.getResume(),
         user.getFileDB(),
-        user.getSalaries(),
         user.getPassword(),
         authorities);
   }
@@ -155,10 +152,6 @@ public class UserDetailsImpl implements UserDetails {
 
   public Set<Notes> getReminders() {
     return reminders;
-  }
-
-  public Set<Salary> getSalaries() {
-    return salaries;
   }
 
   @Override

@@ -17,10 +17,9 @@ public class JwtResponse {
   private Set<Task> tasks;
   private String resume;
   private FileDB fileDB;
-  private Set<Salary> salaries;
   private List<String> roles;
 
-  public JwtResponse(String token, Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, Set<Salary> salaries, List<String> roles) {
+  public JwtResponse(String token, Long id, String username, String name, String surname, String email, UserExtra userExtra, Memory memory, Set<Notes> reminders, Set<Task> tasks, String resume, FileDB fileDB, List<String> roles) {
     this.token = token;
     this.id = id;
     this.username = username;
@@ -33,7 +32,6 @@ public class JwtResponse {
     this.tasks = tasks;
     this.resume = resume;
     this.fileDB = fileDB;
-    this.salaries = salaries;
     this.roles = roles;
   }
 
@@ -155,14 +153,6 @@ public class JwtResponse {
 
   public Memory getMemory() {
     return memory;
-  }
-
-  public Set<Salary> getSalaries() {
-    return salaries;
-  }
-
-  public void setSalaries(Set<Salary> salaries) {
-    this.salaries = salaries;
   }
 
   public FileDB getFileDB() {

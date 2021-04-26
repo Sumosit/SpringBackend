@@ -82,7 +82,6 @@ public class AuthController {
         userDetails.getTasks(),
         userDetails.getResume(),
         userDetails.getFileDB(),
-        userDetails.getSalaries(),
         roles));
   }
 
@@ -107,7 +106,6 @@ public class AuthController {
     userRepository.save(user);
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-    Set<Salary> salaries = new HashSet<>();
     UserExtra userExtra = new UserExtra();
     Memory memory = new Memory();
     memory.setUserId(user.getId());
@@ -148,7 +146,6 @@ public class AuthController {
 
     user.setMemory(memory);
     user.setUserExtra(userExtra);
-    user.setSalaries(salaries);
     user.setRoles(roles);
     userRepository.save(user);
 
