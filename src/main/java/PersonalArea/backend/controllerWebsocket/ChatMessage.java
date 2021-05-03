@@ -5,6 +5,7 @@ import PersonalArea.backend.Entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -21,4 +22,5 @@ public class ChatMessage {
 //    private Long chatId;
     @OneToOne
     private User sender;
+    private Timestamp sendDate;
 }

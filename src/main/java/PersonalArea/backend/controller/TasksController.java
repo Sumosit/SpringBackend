@@ -43,11 +43,9 @@ public class TasksController {
   ) throws IOException {
     try {
       Set<FileDB> fileDBSet = new HashSet<>();
-      if (files == null) {
-        for (MultipartFile file : files) {
-          FileDB fileDB = storageService.store(file);
-          fileDBSet.add(fileDB);
-        }
+      for (MultipartFile file : files) {
+        FileDB fileDB = storageService.store(file);
+        fileDBSet.add(fileDB);
       }
       User author = userRepository.findUserById(userId);
       Task task =
@@ -63,6 +61,17 @@ public class TasksController {
       }
 
       return "Task accepted";
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @GetMapping("/user/tasks/{userId}")
+  public Set<Task> getTasksByUserId(
+      @PathVariable Long userId
+  ) {
+    try {
+      return userRepository.findUserById(userId).getTasks();
     } catch (Exception e) {
       return null;
     }

@@ -4,6 +4,7 @@ import PersonalArea.backend.controllerWebsocket.ChatMessage;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Getter
@@ -22,4 +23,6 @@ public class ChatId {
   private User recipient;
   @OneToMany(fetch = FetchType.EAGER)
   private Set<ChatMessage> chatMessageSet;
+
+  private Long lastId;
 }

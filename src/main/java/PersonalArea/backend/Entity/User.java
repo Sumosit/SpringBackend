@@ -30,9 +30,11 @@ public class User {
 
   @NotBlank
   @Size(max = 30)
+  @Value("none")
   private String name;
   @NotBlank
   @Size(max = 30)
+  @Value("none")
   private String surname;
 
   @NotBlank

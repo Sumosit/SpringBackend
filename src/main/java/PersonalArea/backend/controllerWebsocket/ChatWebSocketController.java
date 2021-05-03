@@ -39,11 +39,13 @@ public class ChatWebSocketController {
           new ChatMessage(
               null,
               chatRestForm.getMessage(),
-              userRepository.findUserById(chatRestForm.getUserId())
+              userRepository.findUserById(chatRestForm.getUserId()),
+              chatRestForm.getSendDate()
               );
       chatMessageRepository.save(chatMessage);
       ChatId chatId = chatIdRepository.findChatIdById(chatRestForm.getChatId());
       Set<ChatMessage> chatMessages = chatId.getChatMessageSet();
+      chatId.setLastId(chatMessage.getId());
       chatMessages.add(chatMessage);
       chatIdRepository.save(chatId);
       return chatMessage;
@@ -63,6 +65,7 @@ public class ChatWebSocketController {
             null,
             sender,
             rec,
+            null,
             null));
         return "True";
       } else {
