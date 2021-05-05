@@ -77,7 +77,12 @@ public class ChatWebSocketController {
   }
 
   @GetMapping("/api/chat/one/{chatId}")
-  public Set<ChatMessage> getOneChatById(@PathVariable Long chatId) {
+  public ChatId getOneChatById(@PathVariable Long chatId) {
+    return chatIdRepository.findById(chatId).get();
+  }
+
+  @GetMapping("/api/chat/messages/{chatId}")
+  public Set<ChatMessage> getOneChatMessagesById(@PathVariable Long chatId) {
     return chatIdRepository.findById(chatId).get().getChatMessageSet();
   }
 
