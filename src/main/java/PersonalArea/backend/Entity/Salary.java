@@ -18,8 +18,11 @@ public class Salary {
 
   @OneToOne
   User user;
+  @OneToOne
+  User author;
   Timestamp period;
   int days, hours;
-  double salaryMonth;
-  double ipn;
+  String month;
+  double salary, opv, oneMzp, vosms, total_nalog,
+      ipn, withheld, debt;
 }
