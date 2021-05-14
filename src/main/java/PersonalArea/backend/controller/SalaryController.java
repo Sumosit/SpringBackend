@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -19,6 +20,17 @@ public class SalaryController {
 
   @Autowired
   UserRepository userRepository;
+
+  @GetMapping("/user/salary/all/{userId}")
+  public List<Salary> getSalariesByUser(
+      @PathVariable Long userId
+  ) {
+    try {
+      return salaryRepository.findAllByUser(userRepository.findUserById(userId));
+    } catch (Exception e) {
+      return null;
+    }
+  }
 
   @PostMapping("/admin/salary/save")
   public String saveSalaries(
