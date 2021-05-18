@@ -12,10 +12,7 @@ import PersonalArea.backend.payload.request.LoginRequest;
 import PersonalArea.backend.payload.request.SignupRequest;
 import PersonalArea.backend.payload.response.JwtResponse;
 import PersonalArea.backend.payload.response.MessageResponse;
-import PersonalArea.backend.repository.MemoryRepository;
-import PersonalArea.backend.repository.RoleRepository;
-import PersonalArea.backend.repository.UserExtraRepository;
-import PersonalArea.backend.repository.UserRepository;
+import PersonalArea.backend.repository.*;
 import PersonalArea.backend.security.jwt.JwtUtils;
 import PersonalArea.backend.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +46,9 @@ public class AuthController {
 
   @Autowired
   UserExtraRepository userExtraRepository;
+
+  @Autowired
+  DocumentRepository documentRepository;
 
   @Autowired
   PasswordEncoder encoder;
@@ -110,7 +110,13 @@ public class AuthController {
     Memory memory = new Memory();
     memory.setUserId(user.getId());
     memory.setName(user.getUsername()+" memory");
-
+    Set<Document> documents = new HashSet<>();
+    documents.add(documentRepository.save(new Document(null, "Passport", null)));
+    documents.add(documentRepository.save(new Document(null, "Diploma", null)));
+    documents.add(documentRepository.save(new Document(null, "Medical verification", null)));
+    documents.add(documentRepository.save(new Document(null, "Conviction", null)));
+    documents.add(documentRepository.save(new Document(null, "Employment contract", null)));
+    userExtra.setDocuments(documents);
     userExtraRepository.save(userExtra);
     memoryRepository.save(memory);
 

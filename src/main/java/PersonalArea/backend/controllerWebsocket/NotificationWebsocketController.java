@@ -1,5 +1,6 @@
 package PersonalArea.backend.controllerWebsocket;
 
+import PersonalArea.backend.Entity.Alarms;
 import PersonalArea.backend.Entity.Notification;
 import PersonalArea.backend.Entity.NotificationRestForm;
 import PersonalArea.backend.Entity.User;

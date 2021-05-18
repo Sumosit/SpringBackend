@@ -42,6 +42,11 @@ public class User {
   @Email
   private String email;
 
+  @NotBlank
+  @Size(max = 60)
+  @Value("none")
+  private String profession;
+
   @JsonIgnore
   @OneToOne(fetch = FetchType.EAGER)
   private UserExtra userExtra;
