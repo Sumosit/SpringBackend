@@ -51,4 +51,15 @@ public class NotificationWebsocketController {
   public List<Notification> getOneChatMessagesById(@PathVariable Long userId) {
     return notificationRepository.findAllByUser(userRepository.findUserById(userId));
   }
+
+  @MessageMapping("/alarms")
+  @SendTo("/topic/alarms")
+  public Alarms alarms(Alarms alarms) throws Exception {
+    Thread.sleep(1000);
+    try {
+      return alarms;
+    } catch (Exception e) {
+      return null;
+    }
+  }
 }
