@@ -59,7 +59,7 @@ public class UserDetailsImpl implements UserDetails {
         user.getEmail(),
         user.getUserExtra(),
         user.getMemory(),
-        user.getReminders(),
+        user.getNotes(),
         user.getTasks(),
         user.getResume(),
         user.getFileDB(),

@@ -20,7 +20,8 @@ public class Task {
   @Column(length = 1000)
   private String description;
   private Timestamp sendDate;
-  private Timestamp deadline;
+  private int deadline_day, deadline_month, deadline_year,
+  deadline_hours, deadline_minute, deadline_seconds;
   @OneToMany
   private Set<FileDB> fileDBSet;
   @OneToOne

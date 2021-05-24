@@ -55,7 +55,7 @@ public class User {
   private Memory memory;
   @JsonIgnore
   @OneToMany(fetch = FetchType.EAGER)
-  private Set<Notes> reminders;
+  private Set<Notes> notes;
   @Column(length = 1000)
   @JsonIgnore
   @ManyToMany(fetch = FetchType.EAGER)
@@ -139,12 +139,12 @@ public class User {
     this.memory = memory;
   }
 
-  public Set<Notes> getReminders() {
-    return reminders;
+  public Set<Notes> getNotes() {
+    return notes;
   }
 
-  public void setReminders(Set<Notes> reminders) {
-    this.reminders = reminders;
+  public void setNotes(Set<Notes> reminders) {
+    this.notes = reminders;
   }
 
   public Set<Task> getTasks() {

@@ -25,9 +25,6 @@ public class ChatWebSocketController {
   ChatIdRepository chatIdRepository;
 
   @Autowired
-  ChatHistoryRepository chatHistoryRepository;
-
-  @Autowired
   ChatMessageRepository chatMessageRepository;
 
   @MessageMapping("/chat/{id}")

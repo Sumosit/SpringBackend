@@ -31,7 +31,7 @@ public class CalendarController {
     try {
       User user = userRepository.getOne(userId);
       List<Notes> total = new ArrayList<>();
-      for (Notes notes :user.getReminders()) {
+      for (Notes notes :user.getNotes()) {
         if (notes.getYear()==year &&
         notes.getMonth()==month &&
         notes.getDay()==day) {
@@ -48,7 +48,7 @@ public class CalendarController {
   public Set<Notes> existsNotesByYearMonthDay(@PathVariable Long userId) {
     try {
       User user = userRepository.getOne(userId);
-      return user.getReminders();
+      return user.getNotes();
     } catch (Exception e) {
       return null;
     }
@@ -67,7 +67,7 @@ public class CalendarController {
           new Notes(null, year, month, day, date, title, description);
       notesRepository.save(notes);
       User user = userRepository.getOne(userId);
-      user.getReminders().add(notes);
+      user.getNotes().add(notes);
       userRepository.save(user);
     } catch (Exception e) {
       return e.toString();

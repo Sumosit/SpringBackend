@@ -22,58 +22,65 @@ import java.util.Set;
 @RequestMapping("/api")
 public class TasksController {
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @Autowired
-  private TaskRepository taskRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
-  @Autowired
-  private FileStorageService storageService;
+    @Autowired
+    private FileStorageService storageService;
 
-  @PostMapping("/admin/task/save")
-  public String saveTask(
-      @RequestParam String title,
-      @RequestParam String description,
-      @RequestParam Timestamp sendDate,
-      @RequestParam Timestamp deadline,
-      @RequestPart(value = "files", required = false) MultipartFile[] files,
-      @RequestParam Long[] usersId,
-      @RequestParam Long userId
-  ) throws IOException {
-    try {
-      Set<FileDB> fileDBSet = new HashSet<>();
-      for (MultipartFile file : files) {
-        FileDB fileDB = storageService.store(file);
-        fileDBSet.add(fileDB);
-      }
-      User author = userRepository.findUserById(userId);
-      Task task =
-          new Task(
-              null, title, description,
-              sendDate, deadline, fileDBSet,
-              author);
-      taskRepository.save(task);
-      for (int i = 0; i < usersId.length; i++) {
-        User user = userRepository.findUserById(usersId[i]);
-        user.getTasks().add(task);
-        userRepository.save(user);
-      }
+    @PostMapping("/admin/task/save")
+    public String saveTask(
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam Timestamp sendDate,
+            @RequestParam int deadline_day,
+            @RequestParam int deadline_month,
+            @RequestParam int deadline_year,
+            @RequestParam int deadline_hours,
+            @RequestParam int deadline_minutes,
+            @RequestParam int deadline_seconds,
+            @RequestPart(value = "files", required = false) MultipartFile[] files,
+            @RequestParam Long[] usersId,
+            @RequestParam Long userId
+    ) throws IOException {
+        try {
+            Set<FileDB> fileDBSet = new HashSet<>();
+            for (MultipartFile file : files) {
+                FileDB fileDB = storageService.store(file);
+                fileDBSet.add(fileDB);
+            }
+            User author = userRepository.findUserById(userId);
+            Task task =
+                    new Task(
+                            null, title, description,
+                            sendDate,
+                            deadline_day, deadline_month, deadline_year,
+                            deadline_hours, deadline_minutes, deadline_seconds,
+                            fileDBSet, author);
+            taskRepository.save(task);
+            for (int i = 0; i < usersId.length; i++) {
+                User user = userRepository.findUserById(usersId[i]);
+                user.getTasks().add(task);
+                userRepository.save(user);
+            }
 
-      return "Task accepted";
-    } catch (Exception e) {
-      return null;
+            return "Task accepted";
+        } catch (Exception e) {
+            return null;
+        }
     }
-  }
 
-  @GetMapping("/user/tasks/{userId}")
-  public Set<Task> getTasksByUserId(
-      @PathVariable Long userId
-  ) {
-    try {
-      return userRepository.findUserById(userId).getTasks();
-    } catch (Exception e) {
-      return null;
+    @GetMapping("/user/tasks/{userId}")
+    public Set<Task> getTasksByUserId(
+            @PathVariable Long userId
+    ) {
+        try {
+            return userRepository.findUserById(userId).getTasks();
+        } catch (Exception e) {
+            return null;
+        }
     }
-  }
 }

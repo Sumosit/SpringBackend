@@ -1,7 +1,8 @@
 package PersonalArea.backend.controller;
 
 import PersonalArea.backend.Entity.Groups;
-import PersonalArea.backend.Entity.Plans;
+import PersonalArea.backend.Entity.Plan;
+import PersonalArea.backend.Entity.User;
 import PersonalArea.backend.repository.GroupsRepository;
 import PersonalArea.backend.repository.PlansRepository;
 import PersonalArea.backend.repository.UserRepository;
@@ -26,7 +27,7 @@ public class PlansController {
 
     @PostMapping("/admin/plans/create")
     public void createPlan(@RequestParam String name) {
-        plansRepository.save(new Plans(null, name, null, null));
+        plansRepository.save(new Plan(null, name, 0, null, null, null));
     }
 
     @PostMapping("/admin/plans/add/users")
@@ -34,11 +35,11 @@ public class PlansController {
             @RequestParam Long plansId,
             @RequestParam Long[] usersId
     ) {
-        Plans plans = plansRepository.findPlansById(plansId);
+        Plan plan = plansRepository.findPlanById(plansId);
         for (Long user : usersId) {
-            plans.getUsers().add(userRepository.findUserById(user));
+            plan.getUsers().add(userRepository.findUserById(user));
         }
-        plansRepository.save(plans);
+        plansRepository.save(plan);
     }
 
     @PostMapping("/admin/plans/add/groups")
@@ -46,11 +47,11 @@ public class PlansController {
             @RequestParam Long plansId,
             @RequestParam Long[] groupsId
     ) {
-        Plans plans = plansRepository.findPlansById(plansId);
+        Plan plan = plansRepository.findPlanById(plansId);
         for (Long group : groupsId) {
-            plans.getGroups().add(groupsRepository.findGroupsById(group));
+            plan.getGroups().add(groupsRepository.findGroupsById(group));
         }
-        plansRepository.save(plans);
+        plansRepository.save(plan);
     }
 
 
@@ -60,33 +61,71 @@ public class PlansController {
             @RequestParam Long[] usersId,
             @RequestParam Long[] groupsId
     ) {
-        Plans plans = plansRepository.findPlansById(plansId);
+        Plan plan = plansRepository.findPlanById(plansId);
         for (Long user : usersId) {
-            plans.getUsers().add(userRepository.findUserById(user));
+            plan.getUsers().add(userRepository.findUserById(user));
         }
         for (Long group : groupsId) {
-            plans.getGroups().add(groupsRepository.findGroupsById(group));
+            plan.getGroups().add(groupsRepository.findGroupsById(group));
+            for (User user : groupsRepository.findGroupsById(group).getUsers()) {
+                plan.getUsers().add(user);
+            }
         }
-        plansRepository.save(plans);
+        plansRepository.save(plan);
+    }
+
+    @PostMapping("/admin/plans/add/plan")
+    public void addPlanToPlan(
+            @RequestParam Long planId,
+            @RequestParam String newPlanName
+    ) {
+        Plan plan = plansRepository.findPlanById(planId);
+        Plan newPlan = new Plan(null, newPlanName, 0, null, null, null);
+        plansRepository.save(newPlan);
+        plan.getPlans().add(newPlan);
+        plansRepository.save(plan);
     }
 
     @GetMapping("/user/plans/all")
-    public List<Plans> getAllPlans() {
+    public List<Plan> getAllPlans() {
         return plansRepository.findAll();
     }
 
     @GetMapping("/user/plans/all/{userId}")
-    public List<Plans> allPlansByUserId(
+    public List<Plan> allPlansByUserId(
             @PathVariable Long userId
     ) {
-        return plansRepository.findPlansByUsers(userRepository.findUserById(userId));
+        return plansRepository.findPlanByUsers(userRepository.findUserById(userId));
     }
 
     @GetMapping("/user/plans/one/{planId}")
-    public Plans OnePlan(
+    public Plan OnePlan(
             @PathVariable Long planId
     ) {
-        return plansRepository.findPlansById(planId);
+        return plansRepository.findPlanById(planId);
+    }
+
+    @PostMapping("/admin/plans/change/completed")
+    public void changePlanStatus(
+            @RequestParam Long planId,
+            @RequestParam int completed,
+            @RequestParam Long[] rootPlan
+    ) {
+        Plan plan = plansRepository.findPlanById(planId);
+        plan.setCompleted(completed);
+        plansRepository.save(plan);
+        for (Long rootPlanIds : rootPlan) {
+            Plan rPlan = plansRepository.findPlanById(rootPlanIds);
+            completed = 0;
+            if (rPlan.getPlans().size() > 0) {
+                for (Plan rp : rPlan.getPlans()) {
+                    completed = completed + rp.getCompleted();
+                }
+                rPlan.setCompleted(completed / rPlan.getPlans().size());
+            }
+
+            plansRepository.save(rPlan);
+        }
     }
 
     @PostMapping("/admin/plans/change/name")
@@ -94,7 +133,7 @@ public class PlansController {
             @RequestParam Long planId,
             @RequestParam String name
     ) {
-        Plans plan = plansRepository.findPlansById(planId);
+        Plan plan = plansRepository.findPlanById(planId);
         plan.setName(name);
         plansRepository.save(plan);
     }
@@ -104,7 +143,7 @@ public class PlansController {
             @RequestParam Long planId,
             @RequestParam Long userId
     ) {
-        Plans plan = plansRepository.findPlansById(planId);
+        Plan plan = plansRepository.findPlanById(planId);
         plan.getUsers().remove(userRepository.findUserById(userId));
         plansRepository.save(plan);
     }
@@ -114,7 +153,7 @@ public class PlansController {
             @RequestParam Long planId,
             @RequestParam Long groupId
     ) {
-        Plans plan = plansRepository.findPlansById(planId);
+        Plan plan = plansRepository.findPlanById(planId);
         Groups group = groupsRepository.findGroupsById(groupId);
         plan.getUsers().removeAll(group.getUsers());
         plan.getGroups().remove(groupsRepository.findGroupsById(groupId));

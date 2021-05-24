@@ -13,16 +13,21 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Plans {
+public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
+    private int completed;
+
     @ManyToMany
     private Set<User> users;
 
     @ManyToMany
     private Set<Groups> groups;
+
+    @OneToMany
+    private Set<Plan> plans;
 }

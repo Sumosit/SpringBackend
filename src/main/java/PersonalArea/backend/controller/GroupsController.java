@@ -1,7 +1,6 @@
 package PersonalArea.backend.controller;
 
 import PersonalArea.backend.Entity.Groups;
-import PersonalArea.backend.Entity.Plans;
 import PersonalArea.backend.repository.GroupsRepository;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
