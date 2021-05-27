@@ -1,14 +1,15 @@
 package PersonalArea.backend.controller;
 
-import PersonalArea.backend.Entity.Groups;
-import PersonalArea.backend.Entity.Plan;
-import PersonalArea.backend.Entity.User;
+import PersonalArea.backend.Entity.*;
 import PersonalArea.backend.repository.GroupsRepository;
 import PersonalArea.backend.repository.PlansRepository;
 import PersonalArea.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -24,6 +25,13 @@ public class PlansController {
 
     @Autowired
     GroupsRepository groupsRepository;
+
+    @MessageMapping("/plans/{planId}")
+    @SendTo("/topic/plans/{planId}")
+    public int webSocketPlans(int signalToUpdate) throws Exception {
+        Thread.sleep(1000);
+        return signalToUpdate;
+    }
 
     @PostMapping("/admin/plans/create")
     public void createPlan(@RequestParam String name) {
@@ -117,6 +125,24 @@ public class PlansController {
         for (Long rootPlanIds : rootPlan) {
             Plan rPlan = plansRepository.findPlanById(rootPlanIds);
             completed = 0;
+            if (rPlan.getPlans().size() > 0) {
+                for (Plan rp : rPlan.getPlans()) {
+                    completed = completed + rp.getCompleted();
+                }
+                rPlan.setCompleted(completed / rPlan.getPlans().size());
+            }
+
+            plansRepository.save(rPlan);
+        }
+    }
+
+    @PostMapping("/admin/plans/change/completed/calculate")
+    public void changePlanStatus(
+            @RequestParam Long[] rootPlan
+    ) {
+        for (Long rootPlanIds : rootPlan) {
+            Plan rPlan = plansRepository.findPlanById(rootPlanIds);
+            int completed = 0;
             if (rPlan.getPlans().size() > 0) {
                 for (Plan rp : rPlan.getPlans()) {
                     completed = completed + rp.getCompleted();

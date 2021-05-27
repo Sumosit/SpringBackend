@@ -23,4 +23,5 @@ public class ChatMessage {
     @OneToOne
     private User sender;
     private Timestamp sendDate;
+    private String checked;
 }
